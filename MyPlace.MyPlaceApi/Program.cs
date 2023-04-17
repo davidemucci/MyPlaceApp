@@ -1,4 +1,6 @@
 
+using Microsoft.AspNetCore.Identity;
+
 namespace MyPlace.MyPlaceApi
 {
     public class Program
@@ -13,6 +15,8 @@ namespace MyPlace.MyPlaceApi
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<>;
 
             var app = builder.Build();
 
