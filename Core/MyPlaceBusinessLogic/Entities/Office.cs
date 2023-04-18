@@ -7,6 +7,7 @@
         public int? Floor { get; set; }
         public int MaxCapacity { get; set; }
         public  bool IsAvailable { get; set; } = true;
+        public int BuildingId { get; set; }
         public List<Reservation> Reservations { get; set; } = new List<Reservation>();
 
     }
