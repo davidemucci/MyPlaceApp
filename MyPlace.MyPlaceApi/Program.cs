@@ -52,7 +52,6 @@ namespace MyPlace.MyPlaceApi
             
             app.UseHttpsRedirection();
 
-            app.UseAuthentication();
             app.UseAuthorization();
 
 
