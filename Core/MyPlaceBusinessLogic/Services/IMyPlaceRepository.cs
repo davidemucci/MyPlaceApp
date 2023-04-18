@@ -10,10 +10,12 @@ namespace MyPlace.BusinessLogic.Services
     public interface IMyPlaceRepository
     {
         Task<IEnumerable<Reservation>> GetReservations();
-        Task<Reservation> GetReservation(int id);
-        Task<Reservation> GetReservationFromCode(Guid code);
+        Task<Reservation?> GetReservation(int id);
+        Task<Reservation?> GetReservationFromCode(Guid code);
         void AddReservation(Reservation reservation);
         void UpdateReservation(Reservation reservation);
         void DeleteReservation(Reservation reservation);
+        Task<bool> ReservationExistsAsync(int id);
+        Task<bool> SaveAsync();
     }
 }
