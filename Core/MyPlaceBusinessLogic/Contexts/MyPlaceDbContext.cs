@@ -11,25 +11,27 @@ using System.Threading.Tasks;
 
 namespace MyPlace.BusinessLogic.Contexts
 {
-    public class MyPlaceDbContext : DbContext 
+    public class MyPlaceDbContext : DbContext
     {
         public MyPlaceDbContext(DbContextOptions<MyPlaceDbContext> options) : base(options) { }
 
 
-        public DbSet<Building> Buildings { get; set; }
-        public DbSet<Office> Offices { get; set; }
-        public DbSet<Reservation> Reservations { get; set; }
+        public DbSet<Building> Buildings { get; set; } = null!;
+        public DbSet<Office> Offices { get; set; } = null!;
+        public DbSet<Reservation> Reservations { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder); 
-
+            
             modelBuilder.Entity<Reservation>(builder =>
             {
                 builder.Property(x => x.Date)
                     .HasConversion<Helpers.DateOnlyConverter, DateOnlyComparer>();
 
             });
+
+            base.OnModelCreating(modelBuilder);
+
         }
 
     }
