@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MyPlace.BusinessLogic.Contexts;
+using MyPlace.BusinessLogic.Entities;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,11 +10,20 @@ namespace MyPlace.MyPlaceApi.Controllers
     [ApiController]
     public class ReservationController : ControllerBase
     {
+        private readonly MyPlaceDbContext _context;
+        public ReservationController(MyPlaceDbContext context)
+        {
+            _context = context ?? throw new ArgumentNullException(nameof(context));
+        }
+
+
+
+
         // GET: api/reservation
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Reservation> Get()
         {
-            return new string[] { "value1", "value2" };
+            return _context.Reservations.ToList();
         }
 
         // GET api/reservation/5

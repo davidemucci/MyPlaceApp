@@ -11,9 +11,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{0A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{36F25648-2116-452C-8CA5-5F892FD94084}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyPlace.BusinessLogic", "Core\MyPlaceBusinessLogic\MyPlace.BusinessLogic.csproj", "{8882DF25-03BB-43EE-A860-E7410929045D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyPlace.BusinessLogic", "Core\MyPlaceBusinessLogic\MyPlace.BusinessLogic.csproj", "{8882DF25-03BB-43EE-A860-E7410929045D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyPlace.MyPlaceApi", "MyPlace.MyPlaceApi\MyPlace.MyPlaceApi.csproj", "{4D0CAB0D-363C-48B1-BBAF-2C1B76E0D1CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyPlace.MyPlaceApi", "MyPlace.MyPlaceApi\MyPlace.MyPlaceApi.csproj", "{4D0CAB0D-363C-48B1-BBAF-2C1B76E0D1CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
