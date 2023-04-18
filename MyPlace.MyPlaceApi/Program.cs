@@ -1,6 +1,9 @@
 
 using Microsoft.AspNetCore.Identity;
 
+using Microsoft.EntityFrameworkCore;
+using MyPlace.BusinessLogic.Contexts;
+
 namespace MyPlace.MyPlaceApi
 {
     public class Program
@@ -8,6 +11,7 @@ namespace MyPlace.MyPlaceApi
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            var connectionString = builder.Configuration.GetConnectionString("MyPlaceDbContextConnection") ?? throw new InvalidOperationException("Connection string 'MyPlaceDbContextConnection' not found.");
 
             // Add services to the container.
 
@@ -16,7 +20,25 @@ namespace MyPlace.MyPlaceApi
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<>;
+
+            builder.Services.AddDbContext<MyPlaceDbContext>(
+                options =>
+                {
+                    options.UseSqlServer(
+                        builder.Configuration["ConnectionStrings:MyPlaceContextDbConnectionString"]);
+                });
+
+            //builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+            //{
+            //    options.Password.RequireDigit = true;
+            //    options.Password.RequiredLength = 8;
+            //    options.Password.RequireNonAlphanumeric = true;
+            //    options.User.RequireUniqueEmail = true;
+
+            //}).AddRoles<IdentityRole>()
+            //  .AddEntityFrameworkStores<MyPlaceDbContext>();
+
+
 
             var app = builder.Build();
 
@@ -27,8 +49,10 @@ namespace MyPlace.MyPlaceApi
                 app.UseSwaggerUI();
             }
 
+            
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
 
