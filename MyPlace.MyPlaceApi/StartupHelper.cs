@@ -1,5 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyPlace.BusinessLogic.Contexts;
+using MyPlace.BusinessLogic.Services;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using Serilog;
 
 namespace MyPlace.MyPlaceApi
@@ -20,11 +23,23 @@ namespace MyPlace.MyPlaceApi
 
             // Add services to the container.
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers() 
+                .AddNewtonsoftJson(setupAction =>
+                {
+                    setupAction.SerializerSettings.ContractResolver =
+                    new CamelCasePropertyNamesContractResolver();
+                    setupAction.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                });
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            builder.Services.AddScoped<IMyPlaceReservationRepository, MyPlaceReservationRepository>();
+            builder.Services.AddScoped<IMyPlaceUserRepository, MyPlaceUserRepository>();
+            
+            //builder.Services.AddScoped<DbSeederInitial>();
 
             builder.Services.AddDbContext<MyPlaceDbContext>(
                 options =>
