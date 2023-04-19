@@ -7,8 +7,8 @@
         public int? Floor { get; set; }
         public int MaxCapacity { get; set; }
         public int? BuildingId { get; set; }
-        public Building Building { get; set; } = new Building();
-        public List<Reservation> Reservations { get; set; } = new List<Reservation>();
+        public Building? Building { get; set; }
+        public List<Reservation>? Reservations { get; set; } 
 
     }
 }

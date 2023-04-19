@@ -66,7 +66,7 @@ namespace MyPlace.MyPlaceApi.Controllers
         }
 
         [HttpPost(Name = "CreateReservationForUser")]
-        public async Task<ActionResult> AddReservationForuser(ReservationDto reservationDto, int userId)
+        public async Task<ActionResult> AddReservationForuser(ReservationForManipulationDto reservationDto, int userId)
         {
             if (reservationDto is null)
             {
@@ -85,8 +85,17 @@ namespace MyPlace.MyPlaceApi.Controllers
                 return BadRequest(ModelState);
             }
 
+            var date = DateOnly.FromDateTime(reservationDto.Date);
+
+            if ( date < DateOnly.FromDateTime(DateTime.Now))
+            {
+                return BadRequest("Date should be in the future");
+            }
+
             var reservationEntity = _mapper.Map<Reservation>(reservationDto);
+
             _repository.AddReservation(reservationEntity, userId);
+             await _repository.SaveAsync();
 
             var reservationToReturn = _mapper.Map<ReservationDto>(reservationEntity);
 
@@ -101,7 +110,7 @@ namespace MyPlace.MyPlaceApi.Controllers
         {
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{reservationId}")]
         public async Task<ActionResult> Delete(int reservationId, int userId)
         {
             if (!await _userRepository.UserExistAsync(userId))
@@ -110,6 +119,7 @@ namespace MyPlace.MyPlaceApi.Controllers
             }
 
             var relationToDelete = await _repository.GetReservationForUserAsync(reservationId, userId);
+
             if (relationToDelete == null)
             {
                 return NotFound();

@@ -11,6 +11,8 @@ namespace MyPlace.MyPlaceApi.Profiles
         {
             CreateMap<Reservation, ReservationDto>().ReverseMap();
             CreateMap<Reservation, LightReservationDto>().ReverseMap();
+            CreateMap<ReservationForManipulationDto, Reservation>().ForMember(x => x.Date,
+                opt => opt.MapFrom(src => ((DateOnly.FromDateTime(src.Date)))));
         }
 
     }
