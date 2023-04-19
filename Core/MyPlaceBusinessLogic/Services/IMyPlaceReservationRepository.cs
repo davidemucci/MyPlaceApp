@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace MyPlace.BusinessLogic.Services
 {
-    public interface IMyPlaceRepository
+    public interface IMyPlaceReservationRepository
     {
-        Task<IEnumerable<Reservation>> GetReservations();
-        Task<Reservation?> GetReservation(int id);
-        Task<Reservation?> GetReservationFromCode(Guid code);
-        void AddReservation(Reservation reservation);
+        Task<IEnumerable<Reservation>> GetReservationsForUserAsync(int id);
+        Task<Reservation?> GetReservationForUserAsync(int id, int userId);
+        Task<Reservation?> GetReservationFromCodeAsync(Guid code);
+        void AddReservation(Reservation reservation, int userId);
         void UpdateReservation(Reservation reservation);
         void DeleteReservation(Reservation reservation);
         Task<bool> ReservationExistsAsync(int id);

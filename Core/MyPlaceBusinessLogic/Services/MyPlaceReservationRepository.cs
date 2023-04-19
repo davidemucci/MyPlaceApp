@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MyPlace.BusinessLogic.Services
 {
-    public class MyPlaceReservationRepository : IMyPlaceRepository
+    public class MyPlaceReservationRepository : IMyPlaceReservationRepository
     {
         private readonly MyPlaceDbContext _context;
 
@@ -18,37 +18,40 @@ namespace MyPlace.BusinessLogic.Services
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
-
-        public void AddReservation(Reservation reservation)
+        //Getters
+        public async Task<IEnumerable<Reservation>> GetReservationsForUserAsync(int userId)
         {
+            return await _context.Reservations.Where(r => r.UserId == userId).ToListAsync();
+        }
+        public async Task<Reservation?> GetReservationForUserAsync(int id, int userId)
+        {
+            return await _context.Reservations.FirstOrDefaultAsync(r => r.Id == id && r.UserId == userId);
+        }
+        public async Task<Reservation?> GetReservationFromCodeAsync(Guid code)
+        {
+            return await _context.Reservations.FirstOrDefaultAsync(r => r.ReservationCode == code);
+        }
+        //Modifier
+        public void AddReservation(Reservation reservation, int UserId)
+        {
+            if(reservation is null)
+            {
+                throw new ArgumentNullException(nameof(reservation));   
+            }
+
+            reservation.UserId = UserId;
+
             _context.Reservations.Add(reservation);
         }
-
         public void DeleteReservation(Reservation reservation)
         {
             _context.Reservations.Remove(reservation);
         }
-
-        public async Task<Reservation?> GetReservation(int id)
-        {
-            return await _context.Reservations.FirstOrDefaultAsync(r => r.Id ==  id);
-        }
-
-        public async Task<Reservation?> GetReservationFromCode(Guid code)
-        {
-            return await _context.Reservations.FirstOrDefaultAsync(r => r.ReservationCode == code);
-        }
-
-        public async Task<IEnumerable<Reservation>> GetReservations()
-        {
-            return await _context.Reservations.ToListAsync();
-        }
-
         public void UpdateReservation(Reservation reservation)
         {
            _context.Reservations.Update(reservation);
         }
-
+        //Utilities
         public async Task<bool> ReservationExistsAsync(int id)
         {
             if (await _context.Reservations.FirstOrDefaultAsync(r => r.Id == id) is null)
@@ -60,8 +63,6 @@ namespace MyPlace.BusinessLogic.Services
                 return true;
             }
         }
-
-
         public async Task<bool> SaveAsync()
         {
             return (await _context.SaveChangesAsync() >= 0);
