@@ -21,11 +21,11 @@ namespace MyPlace.BusinessLogic.Services
         //Getters
         public async Task<IEnumerable<Reservation>> GetReservationsForUserAsync(int userId)
         {
-            return await _context.Reservations.Where(r => r.UserId == userId).ToListAsync();
+            return await _context.Reservations.Where(r => r.UserId == userId).Include("Office").Include(o => o.Office.Building).ToListAsync();
         }
         public async Task<Reservation?> GetReservationForUserAsync(int id, int userId)
         {
-            return await _context.Reservations.FirstOrDefaultAsync(r => r.Id == id && r.UserId == userId);
+            return await _context.Reservations.Include("Office").Include(o => o.Office.Building).FirstOrDefaultAsync(r => r.Id == id && r.UserId == userId);
         }
         public async Task<Reservation?> GetReservationFromCodeAsync(Guid code)
         {

@@ -17,6 +17,14 @@ namespace MyPlace.MyPlaceApi
                 .WriteTo.File("Logs/MyPlaceLogs.txt", rollingInterval: RollingInterval.Day)
                 .CreateLogger();
 
+            // Add Cors
+            builder.Services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
+
             builder.Host.UseSerilog();
             var connectionString = builder.Configuration.GetConnectionString("MyPlaceContextDbConnectionString")
                 ?? throw new InvalidOperationException("Connection string 'MyPlaceDbContextConnection' not found.");
@@ -73,8 +81,9 @@ namespace MyPlace.MyPlaceApi
                 });
             }
 
-
+            
             app.UseHttpsRedirection();
+            app.UseCors("MyPolicy");
             app.UseAuthorization();
             app.MapControllers();
 

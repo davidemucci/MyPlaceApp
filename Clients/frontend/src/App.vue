@@ -1,12 +1,19 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
-    <router-view />
+    <NavBarComponent></NavBarComponent><router-view></router-view>
   </div>
 </template>
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+import NavBarComponent from "@/components/NavbarComponent.vue";
+
+@Component({
+  components: {
+    NavBarComponent,
+  },
+})
+export default class App extends Vue {}
+</script>
 
 <style>
 #app {
@@ -27,6 +34,6 @@ nav a {
 }
 
 nav a.router-link-exact-active {
-  color: #42b983;
+  color: #f27c38;
 }
 </style>

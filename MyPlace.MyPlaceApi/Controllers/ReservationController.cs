@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyPlace.BusinessLogic.Contexts;
@@ -12,6 +13,7 @@ using MyPlace.MyPlaceApi.Models;
 
 namespace MyPlace.MyPlaceApi.Controllers
 {
+    [EnableCors("MyPolicy")]
     [Route("api/users/{userId}/reservations")]
     [ApiController]
     public class ReservationController : ControllerBase

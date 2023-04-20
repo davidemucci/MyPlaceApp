@@ -11,6 +11,7 @@ namespace MyPlace.BusinessLogic.Dtos
     {
         public Guid ReservationCode { get; set; } = new Guid();
         public DateOnly Date { get; set; } = DateOnly.FromDateTime(DateTime.Now.AddDays(7)) ;
+        public Office? Office { get; set; }
         public int OfficeId { get; set; }
         public User User { get; set; } = new User();
         public int UserId { get; set; } 
