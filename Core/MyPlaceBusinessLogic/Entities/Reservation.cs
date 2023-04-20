@@ -9,7 +9,7 @@
         public int? OfficeId { get; set; }
         public Office? Office { get; set; } 
         public int UserId { get; set; }
-        public User User { get; set; }  = new User();
+        public User? User { get; set; }
         
     }
 }

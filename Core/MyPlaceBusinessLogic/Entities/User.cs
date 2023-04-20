@@ -14,7 +14,7 @@ namespace MyPlace.BusinessLogic.Entities
         public string? UserName { get; set; }
         public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
-        public List<Reservation> Reservations { get; set; } = new List<Reservation>();
+        public List<Reservation>? Reservations { get; set; } 
 
 
     }

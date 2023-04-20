@@ -15,10 +15,10 @@ namespace MyPlace.BusinessLogic.Contexts
     {
         public MyPlaceDbContext(DbContextOptions<MyPlaceDbContext> options) : base(options) { }
 
-
         public DbSet<Building> Buildings { get; set; } = null!;
         public DbSet<Office> Offices { get; set; } = null!;
         public DbSet<Reservation> Reservations { get; set; } = null!;
+        public DbSet<User> Users { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

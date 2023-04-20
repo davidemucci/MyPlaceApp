@@ -1,8 +1,3 @@
-
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using MyPlace.BusinessLogic.Contexts;
-
 namespace MyPlace.MyPlaceApi
 {
     public class Program
@@ -15,7 +10,7 @@ namespace MyPlace.MyPlaceApi
                    .ConfigureServices()
                    .ConfigurePipeline();
 
-
+            
             app.Run();
         }
     }

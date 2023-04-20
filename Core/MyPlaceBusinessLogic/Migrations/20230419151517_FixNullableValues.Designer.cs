@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyPlace.BusinessLogic.Contexts;
 
@@ -11,9 +12,11 @@ using MyPlace.BusinessLogic.Contexts;
 namespace MyPlace.BusinessLogic.Migrations
 {
     [DbContext(typeof(MyPlaceDbContext))]
-    partial class MyPlaceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230419151517_FixNullableValues")]
+    partial class FixNullableValues
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
