@@ -9,7 +9,7 @@
 
       <div class="col">
         <router-link to="/">Dashboard</router-link> |
-        <router-link to="/about">Prenota</router-link>
+        <router-link to="/addreservation">Prenota</router-link>
       </div>
     </nav>
   </div>

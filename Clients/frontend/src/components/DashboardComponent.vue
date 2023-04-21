@@ -3,6 +3,9 @@
     <div class="container">
       <div class="text-center">
         <h2>Benvenuto {{ user.firstName + " " + user.lastName }}</h2>
+        <a class="btn btn-primary" v-on:click="changeUser" role="button"
+          >Change User</a
+        >
       </div>
       <div class="table-responsive-lg">
         <table class="table table-dark">
@@ -35,7 +38,7 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import axios from "axios";
 import { Reservation } from "@/interfaces/Entities";
 
@@ -48,9 +51,17 @@ export default class DashboardComponent extends Vue {
     lastName: "",
   };
 
-  changeValue(): void {
+  changeUser(): void {
+    if (this.userId == 1) {
+      this.userId = 11;
+    } else {
+      this.userId = 1;
+    }
+  }
+
+  getValue(userId: number): void {
     axios
-      .get(`https://localhost:7052/api/users/${this.userId}/reservations`)
+      .get(`https://localhost:7052/api/users/${userId}/reservations`)
       .then((result) => {
         this.reservationList = result.data;
         if (result.data.length > 0) {
@@ -62,7 +73,12 @@ export default class DashboardComponent extends Vue {
       .catch((e) => console.error(e));
   }
   mounted() {
-    this.changeValue();
+    this.getValue(this.userId);
+  }
+
+  @Watch("userId")
+  OnPropertyChanged(value: number) {
+    this.getValue(value);
   }
 }
 </script>

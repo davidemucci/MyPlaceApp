@@ -6,7 +6,6 @@ using MyPlace.BusinessLogic.Contexts;
 using MyPlace.BusinessLogic.Dtos;
 using MyPlace.BusinessLogic.Entities;
 using MyPlace.BusinessLogic.Services;
-using MyPlace.MyPlaceApi.Helpers;
 using MyPlace.MyPlaceApi.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860

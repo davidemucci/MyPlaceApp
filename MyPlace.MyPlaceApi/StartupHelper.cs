@@ -46,7 +46,9 @@ namespace MyPlace.MyPlaceApi
 
             builder.Services.AddScoped<IMyPlaceReservationRepository, MyPlaceReservationRepository>();
             builder.Services.AddScoped<IMyPlaceUserRepository, MyPlaceUserRepository>();
-            
+            builder.Services.AddScoped<IMyPlaceOfficeRepository, MyPlaceOfficeRepository>();
+            builder.Services.AddScoped<IMyPlaceBuildingRepository, MyPlaceBuildingRepository>();
+
             //builder.Services.AddScoped<DbSeederInitial>();
 
             builder.Services.AddDbContext<MyPlaceDbContext>(
