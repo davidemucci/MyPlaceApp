@@ -22,5 +22,15 @@ namespace MyPlace.BusinessLogic.Services
         {
             return await _context.Offices.ToListAsync();
         }
+
+        public async Task<IEnumerable<Office>> GetOfficesForBuildingAsync(int buildingId)
+        {
+            var building = await _context.Buildings.FirstOrDefaultAsync(b => b.Id == buildingId);
+            if(building is null)
+            {
+                throw new ArgumentNullException(nameof(building));
+            }
+            return await _context.Offices.Where(o => o.BuildingId ==  buildingId).ToListAsync();
+        }
     }
 }

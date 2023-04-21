@@ -9,6 +9,7 @@ namespace MyPlace.BusinessLogic.Services
 {
     public interface IMyPlaceBuildingRepository
     {
-        Task<IEnumerable<Building>> GetBuildings();
+        Task<IEnumerable<Building>> GetBuildingsAsync();
+        Task<bool> ExistBuildingAsync(int buildingId);
     }
 }

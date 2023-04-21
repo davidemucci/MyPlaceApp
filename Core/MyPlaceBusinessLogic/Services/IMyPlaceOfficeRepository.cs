@@ -10,5 +10,6 @@ namespace MyPlace.BusinessLogic.Services
     public interface IMyPlaceOfficeRepository
     {
         Task<IEnumerable<Office>> GetOfficesAsync();
+        Task<IEnumerable<Office>> GetOfficesForBuildingAsync(int buildingId);
     }
 }

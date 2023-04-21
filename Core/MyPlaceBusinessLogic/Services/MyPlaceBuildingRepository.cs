@@ -18,9 +18,23 @@ namespace MyPlace.BusinessLogic.Services
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<IEnumerable<Building>> GetBuildings()
+        public async Task<IEnumerable<Building>> GetBuildingsAsync()
         {
             return await _context.Buildings.ToListAsync();
+        }
+
+        public async Task<bool> ExistBuildingAsync(int buildingId)
+        {
+            var building = await _context.Buildings.FirstOrDefaultAsync(b => b.Id == buildingId);
+
+            if(building == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
     }
 }

@@ -41,8 +41,11 @@
 import { Component, Vue, Watch } from "vue-property-decorator";
 import axios from "axios";
 import { Reservation } from "@/interfaces/Entities";
-
-@Component
+@Component({
+  components: {
+    DashboardComponent,
+  },
+})
 export default class DashboardComponent extends Vue {
   reservationList: Reservation[] | null = null;
   userId = 11;
@@ -68,7 +71,6 @@ export default class DashboardComponent extends Vue {
           this.user.firstName = result.data[0].user.firstName;
           this.user.lastName = result.data[1].user.lastName;
         }
-        console.log(this.reservationList);
       })
       .catch((e) => console.error(e));
   }
