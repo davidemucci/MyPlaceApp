@@ -9,7 +9,7 @@ namespace MyPlace.BusinessLogic.Dtos
 {
     public class ReservationDto
     {
-        public Guid ReservationCode { get; set; } = new Guid();
+        public Guid ReservationCode { get; set; } = Guid.NewGuid();
         public DateOnly Date { get; set; } = DateOnly.FromDateTime(DateTime.Now.AddDays(7)) ;
         public Office? Office { get; set; }
         public int OfficeId { get; set; }

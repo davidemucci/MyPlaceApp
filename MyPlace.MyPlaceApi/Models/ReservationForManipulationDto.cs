@@ -5,7 +5,7 @@ namespace MyPlace.MyPlaceApi.Models
 {
     public class ReservationForManipulationDto
     {
-        public Guid ReservationCode { get; set; } = new Guid();
+        public Guid ReservationCode { get; set; } = Guid.NewGuid();
 
         [Required(ErrorMessage = "You shold select a Date for the reservation")]
         public DateTime Date { get; set; }

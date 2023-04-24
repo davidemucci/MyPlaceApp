@@ -13,8 +13,8 @@
     "useDefineForClassFields": true,
     //"strictPropertyInitialization": false,
     "allowJs": true,
-    "noImplicitAny": true, 
-    "strictNullChecks":true,
+    "noImplicitAny": false,
+    "strictNullChecks": true,
     "sourceMap": true,
     "baseUrl": ".",
     "types": [
