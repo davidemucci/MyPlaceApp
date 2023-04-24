@@ -2,8 +2,11 @@
   <div class="wrapper">
     <div class="container">
       <div class="text-center">
-        <h2>Benvenuto {{ user.firstName + " " + user.lastName }}</h2>
-        <a class="btn btn-primary" v-on:click="changeUser" role="button"
+        <h2>Benvenuto {{ UserStore.name }}</h2>
+        <a
+          class="btn btn-primary"
+          v-on:click="UserStore.changeUser()"
+          role="button"
           >Change User</a
         >
       </div>
@@ -39,6 +42,7 @@
 </template>
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
+import { useUserStore } from "@/states/UserState";
 import axios from "axios";
 import { Reservation } from "@/interfaces/Entities";
 @Component({
@@ -48,37 +52,21 @@ import { Reservation } from "@/interfaces/Entities";
 })
 export default class DashboardComponent extends Vue {
   reservationList: Reservation[] | null = null;
-  userId = 11;
-  user = {
-    firstName: "",
-    lastName: "",
-  };
-
-  changeUser(): void {
-    if (this.userId == 1) {
-      this.userId = 11;
-    } else {
-      this.userId = 1;
-    }
-  }
+  UserStore = useUserStore();
 
   getValue(userId: number): void {
     axios
       .get(`https://localhost:7052/api/users/${userId}/reservations`)
       .then((result) => {
         this.reservationList = result.data;
-        if (result.data.length > 0) {
-          this.user.firstName = result.data[0].user.firstName;
-          this.user.lastName = result.data[1].user.lastName;
-        }
       })
       .catch((e) => console.error(e));
   }
   mounted() {
-    this.getValue(this.userId);
+    this.getValue(this.UserStore.userId);
   }
 
-  @Watch("userId")
+  @Watch("UserStore.userId")
   OnPropertyChanged(value: number) {
     this.getValue(value);
   }

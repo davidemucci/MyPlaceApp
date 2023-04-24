@@ -40,15 +40,17 @@
 </template>
 <script lang="ts">
 import { Component, Watch, Vue } from "vue-property-decorator";
+import { useUserStore } from "@/states/UserState";
 import axios from "axios";
 import { Building, Office } from "@/interfaces/Entities";
 @Component
 export default class AddReservationView extends Vue {
-  userId = 11;
+  useUserStore = useUserStore();
+  userId = useUserStore().userId;
   officeList: Array<Office> | null = null;
-  officeId = 1;
+  officeId = null;
   buildingList: Array<Building> | null = null;
-  buildingId = 1;
+  buildingId: number | null = null;
   selectedDate: string | null = null;
   getOfficeEvent(event): void {
     console.log(event.target.value);
@@ -58,7 +60,7 @@ export default class AddReservationView extends Vue {
     axios
       .get(`https://localhost:7052/api/building/${buildingId}/office`)
       .then((resp) => {
-        console.log(resp.data);
+        // console.log(resp.data);
         this.officeList = [];
         this.officeList = resp.data;
         if (resp.data.length > 0) {
@@ -72,7 +74,10 @@ export default class AddReservationView extends Vue {
       .get("https://localhost:7052/api/buildings")
       .then((resp) => {
         this.buildingList = resp.data;
-        console.log(resp.data);
+        if (resp.data.length > 0) {
+          this.buildingId = resp.data[0].id;
+          this.getOffice(resp.data[0].id);
+        }
       })
       .catch((e) => console.error(e));
   }
@@ -85,6 +90,7 @@ export default class AddReservationView extends Vue {
       })
       .then(function (response) {
         console.log(response);
+        alert("Salvataggio riuscito");
       })
       .catch(function (error) {
         console.log(error);
@@ -95,7 +101,6 @@ export default class AddReservationView extends Vue {
   }
   mounted() {
     this.getBuilding();
-    this.getOffice(this.buildingId);
   }
   @Watch("buildingId")
   onPropertyChanged(value: number) {

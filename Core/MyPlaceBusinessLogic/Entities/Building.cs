@@ -12,7 +12,6 @@ namespace MyPlace.BusinessLogic.Entities
         public string Name { get; set; } = string.Empty;
         public string? Address { get; set; }
         public int FloorsNumber { get; set; } = 1;
-
         public List<Office>? Offices { get; set; } = new List<Office>();
 
     }
