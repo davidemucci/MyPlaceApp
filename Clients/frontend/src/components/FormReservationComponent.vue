@@ -45,8 +45,7 @@ import axios from "axios";
 import { Building, Office } from "@/interfaces/Entities";
 @Component
 export default class AddReservationView extends Vue {
-  useUserStore = useUserStore();
-  userId = useUserStore().userId;
+  UserStore = useUserStore();
   officeList: Array<Office> | null = null;
   officeId = null;
   buildingList: Array<Building> | null = null;
@@ -83,17 +82,21 @@ export default class AddReservationView extends Vue {
   }
   onSubmit() {
     axios
-      .post(`https://localhost:7052/api/users/${this.userId}/reservations`, {
-        date: this.selectedDate,
-        officeId: this.officeId,
-        userId: this.userId,
-      })
+      .post(
+        `https://localhost:7052/api/users/${this.UserStore.userId}/reservations`,
+        {
+          date: this.selectedDate,
+          officeId: this.officeId,
+          userId: this.UserStore.userId,
+        }
+      )
       .then(function (response) {
         console.log(response);
         alert("Salvataggio riuscito");
       })
       .catch(function (error) {
         console.log(error);
+        alert("errore nel salvataggio");
       });
   }
   getDate(value: string) {

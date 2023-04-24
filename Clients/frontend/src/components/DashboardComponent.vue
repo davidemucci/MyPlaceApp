@@ -2,7 +2,6 @@
   <div class="wrapper">
     <div class="container">
       <div class="text-center">
-        <h2>Benvenuto {{ UserStore.name }}</h2>
         <a
           class="btn btn-primary"
           v-on:click="UserStore.changeUser()"
